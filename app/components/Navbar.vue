@@ -18,7 +18,7 @@ function onClickSignOut() {
   <nav class="sticky top-0 z-30 px-6 py-8 bg-zinc-200">
     <div class="flex justify-between max-w-[1800px] mx-auto">
       <NuxtLink to="/" class="text-4xl text-green-600 uppercase cursor-pointer"
-        >Foodtopia</NuxtLink
+        >Foodiestopia</NuxtLink
       >
       <ClientOnly>
         <div

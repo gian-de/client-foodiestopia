@@ -12,7 +12,7 @@ const email = computed(() => decodeURIComponent(route.query.email as string));
   <div class="flex flex-col max-w-lg px-4 mx-auto mt-16 space-y-8">
     <p class="mx-auto text-xl sm:text-3xl">
       Verify your email: <span class="italic">{{ email }}</span> in order to
-      utilize all the features inside of Foodtopia.
+      utilize all the features inside of Foodiestopia.
     </p>
     <NuxtLink
       to="/login"
