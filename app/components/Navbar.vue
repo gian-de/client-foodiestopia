@@ -2,12 +2,12 @@
 import { NuxtLink } from "#components";
 
 const navAuthLinks = [
-  { id: 1, name: "register", to: "/register" },
-  { id: 2, name: "login", to: "/login" },
+  { id: 1, name: "Register", to: "/register" },
+  { id: 2, name: "Login", to: "/login" },
 ];
 
 const auth = useAuthStore();
-const { user, isAuthenticated } = storeToRefs(auth);
+const { isAuthenticated } = storeToRefs(auth);
 
 function onClickSignOut() {
   auth.logout();
@@ -15,29 +15,36 @@ function onClickSignOut() {
 </script>
 
 <template>
-  <nav class="sticky top-0 z-30 px-6 py-8 bg-zinc-200">
-    <div class="flex justify-between max-w-[1800px] mx-auto">
-      <NuxtLink to="/" class="text-4xl text-green-600 uppercase cursor-pointer"
-        >Foodiestopia</NuxtLink
+  <nav
+    class="sticky top-0 z-30 px-6 py-4 bg-white border-b border-stone-200"
+  >
+    <div class="flex items-center justify-between max-w-6xl mx-auto">
+      <NuxtLink
+        to="/"
+        class="text-2xl font-bold tracking-tight text-brand-600 transition-colors hover:text-brand-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600"
       >
+        Foodiestopia
+      </NuxtLink>
       <ClientOnly>
         <div
           v-if="isAuthenticated"
-          class="flex items-center space-x-4 text-xl text-black"
+          class="flex items-center gap-4 text-sm font-medium text-stone-700"
         >
-          <NuxtLink
+          <button
+            type="button"
+            class="transition-colors hover:text-brand-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600"
             @click="onClickSignOut"
-            class="px-3 py-1 capitalize cursor-pointer"
           >
             Sign out
-          </NuxtLink>
+          </button>
         </div>
-        <div v-else class="flex items-center space-x-4 text-xl text-black">
+        <div v-else class="flex items-center gap-4 text-sm font-medium">
           <NuxtLink
             v-for="link in navAuthLinks"
+            :key="link.id"
             :to="link.to"
-            class="px-3 py-1 capitalize rounded-md cursor-pointer"
-            active-class="px-3 py-1 bg-zinc-500 text-slate-100"
+            class="text-stone-700 transition-colors hover:text-brand-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600"
+            active-class="!text-brand-600"
           >
             {{ link.name }}
           </NuxtLink>

@@ -3,8 +3,7 @@ import { ref } from "vue";
 import type { AuthResponse, AuthUser } from "~/types/auth_type";
 
 export const useAuthStore = defineStore("auth", () => {
-  const config = useRuntimeConfig();
-  const baseUrl = config.public.BASE_API_URL;
+  const { apiUrl } = useApiBase();
 
   const token = ref<string | null>(null);
   const user = ref<AuthUser | null>(null);
@@ -57,7 +56,7 @@ export const useAuthStore = defineStore("auth", () => {
     payload: { username: string; password: string },
     redirectTo?: string
   ) {
-    const url = `${baseUrl}/api/account/login`;
+    const url = apiUrl("/api/account/login");
     try {
       const data = await $fetch<AuthResponse>(url, {
         method: "POST",
@@ -130,7 +129,7 @@ export const useAuthStore = defineStore("auth", () => {
     username: string;
     password: string;
   }) {
-    const url = `${baseUrl}/api/account/register`;
+    const url = apiUrl("/api/account/register");
 
     try {
       const data = await $fetch(url, {
@@ -161,7 +160,7 @@ export const useAuthStore = defineStore("auth", () => {
   }
 
   async function guestLogin(redirectTo?: string) {
-    const url = `${baseUrl}/api/account/guest-login`;
+    const url = apiUrl("/api/account/guest-login");
     try {
       const data = await $fetch<AuthResponse>(url, {
         method: "POST",

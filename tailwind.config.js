@@ -9,7 +9,17 @@ export default {
     "./app/error.vue",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        brand: {
+          50: "#fef6f3",
+          100: "#fdeee8",
+          500: "#c75a3a",
+          600: "#b04e32",
+          700: "#934228",
+        },
+      },
+    },
   },
   plugins: [],
 };
