@@ -1,9 +1,8 @@
 export const useAuthMethods = () => {
-  const config = useRuntimeConfig();
-  const baseUrl = config.public.BASE_API_URL;
+  const { apiUrl } = useApiBase();
 
   async function forgotUsername(email: string) {
-    const url = `${baseUrl}/api/account/forgot-username`;
+    const url = apiUrl("/api/account/forgot-username");
 
     try {
       const data = await $fetch<{ message: string }>(url, {
@@ -24,7 +23,7 @@ export const useAuthMethods = () => {
   }
 
   async function forgotPassword(email: string) {
-    const url = `${baseUrl}/api/account/forgot-password`;
+    const url = apiUrl("/api/account/forgot-password");
 
     try {
       const data = await $fetch<{ message: string }>(url, {
