@@ -34,6 +34,9 @@ export interface Recipe {
   difficultyReviewCount: number | null;
   visibilityStatus: string;
   publishedAt: string;
+  prepTimeMinutes: number;
+  cookTimeMinutes: number;
+  totalTimeMinutes: number;
   user: UserTldr | null;
   countryId: string;
   country: Country;

@@ -14,7 +14,7 @@ const { data: recipes, pending: isLoading, error } = await useAsyncData(
     const q = String(route.query.q ?? "").trim();
     const data = await fetchRecipes({
       page: 1,
-      pageSize: 50,
+      pageSize: 200,
       sortBy: "heartedbyusers",
       sortDirection: "desc",
       search: q,
@@ -50,16 +50,18 @@ watch(
 <template>
   <div class="px-6 py-10 space-y-10">
     <section
-      class="max-w-2xl p-6 mx-auto space-y-4 bg-white border rounded-lg border-stone-200 sm:p-8"
+      class="max-w-2xl p-6 mx-auto space-y-4 bg-white border rounded-lg border-stone-200 dark:bg-stone-900 dark:border-stone-800 sm:p-8"
     >
-      <h1 class="text-2xl font-bold text-stone-900 sm:text-3xl">
+      <h1
+        class="text-2xl font-bold text-stone-900 sm:text-3xl dark:text-stone-100"
+      >
         Search recipes
       </h1>
       <RecipeSearchBar v-model="searchQuery" @submit="onSearch" />
     </section>
 
     <section class="space-y-6">
-      <h2 class="text-2xl font-bold text-stone-900">
+      <h2 class="text-2xl font-bold text-stone-900 dark:text-stone-100">
         {{
           String(route.query.q || "").trim()
             ? `Results for “${String(route.query.q).trim()}”`
@@ -69,15 +71,17 @@ watch(
 
       <div
         v-if="errorMessage"
-        class="p-3 text-red-700 bg-red-50 border border-red-200 rounded-md"
+        class="p-3 text-red-700 bg-red-50 border border-red-200 rounded-md dark:text-red-300 dark:bg-red-950 dark:border-red-900"
         role="alert"
       >
         {{ errorMessage }}
       </div>
 
-      <p v-else-if="isLoading" class="text-stone-600">Searching...</p>
+      <p v-else-if="isLoading" class="text-stone-600 dark:text-stone-400">
+        Searching...
+      </p>
 
-      <p v-else-if="!recipes?.length" class="text-stone-600">
+      <p v-else-if="!recipes?.length" class="text-stone-600 dark:text-stone-400">
         No recipes matched that name or country.
       </p>
 

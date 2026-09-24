@@ -1,5 +1,6 @@
 import type { PagedRecipes, Recipe } from "~/types/recipe";
 import { mediaUrl } from "~/utils/mediaUrl";
+import { normalizePagedRecipes, normalizeRecipe } from "~/utils/recipe";
 
 export function useRecipes() {
   const { apiUrl, assetBase } = useApiBase();
@@ -11,19 +12,21 @@ export function useRecipes() {
     sortDirection?: string;
     search?: string;
   } = {}) {
-    return await $fetch<PagedRecipes>(apiUrl("/api/recipes"), {
+    const data = await $fetch<PagedRecipes>(apiUrl("/api/recipes"), {
       query: {
         page: query.page ?? 1,
-        pageSize: query.pageSize ?? 10,
+        pageSize: query.pageSize ?? 100,
         sortBy: query.sortBy ?? "PublishedAt",
         sortDirection: query.sortDirection ?? "desc",
         search: query.search || undefined,
       },
     });
+    return normalizePagedRecipes(data);
   }
 
   async function fetchRecipeById(recipeId: string) {
-    return await $fetch<Recipe>(apiUrl(`/api/recipes/${recipeId}`));
+    const data = await $fetch<Recipe>(apiUrl(`/api/recipes/${recipeId}`));
+    return normalizeRecipe(data);
   }
 
   function recipeImage(path: string | null | undefined) {
