@@ -1,12 +1,19 @@
-export function useApiBase() {
+function resolveApiOrigin() {
   const config = useRuntimeConfig();
-  const externalBase = String(config.public.BASE_API_URL || "").replace(
-    /\/$/,
-    ""
-  );
+  const developmentApiUrl = String(
+    config.public.developmentApiUrl || "http://localhost:5001"
+  ).replace(/\/$/, "");
+  const productionApiUrl = String(
+    config.public.productionApiUrl || "https://api.foodiestopia.com"
+  ).replace(/\/$/, "");
 
-  // In dev, call same-origin `/api/*` so Nitro's devProxy avoids CORS issues
-  // when the app runs on a port other than 3000 (e.g. 3001).
+  return import.meta.dev ? developmentApiUrl : productionApiUrl;
+}
+
+export function useApiBase() {
+  const externalBase = resolveApiOrigin();
+
+  // In dev, call same-origin `/api/*`. Nitro proxies that to localhost:5001.
   const apiBase = import.meta.dev ? "" : externalBase;
 
   function apiUrl(path: string) {

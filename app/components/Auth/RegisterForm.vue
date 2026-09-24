@@ -20,7 +20,7 @@ const errorMessage = ref("");
 const isPasswordHidden = ref(true);
 
 const inputClass =
-  "w-full px-4 py-2.5 text-base border rounded-md border-stone-300 bg-white text-stone-900 placeholder:text-stone-400 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 disabled:opacity-60";
+  "w-full px-4 py-2.5 text-base border rounded-md border-stone-300 bg-white text-stone-900 placeholder:text-stone-400 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 disabled:opacity-60 dark:border-stone-600 dark:bg-stone-950 dark:text-stone-100 dark:placeholder:text-stone-500";
 
 function togglePassword() {
   isPasswordHidden.value = !isPasswordHidden.value;
@@ -82,11 +82,14 @@ async function onGuestLogin() {
 <template>
   <div class="space-y-6">
     <form
-      class="p-6 space-y-5 bg-white border rounded-lg border-stone-200 sm:p-8"
+      class="p-6 space-y-5 bg-white border rounded-lg border-stone-200 dark:bg-stone-900 dark:border-stone-800 sm:p-8"
       @submit.prevent="onSubmitRegisterInfo"
     >
       <div class="space-y-2">
-        <label class="text-sm font-medium text-stone-700" for="username">
+        <label
+          class="text-sm font-medium text-stone-700 dark:text-stone-300"
+          for="username"
+        >
           Username
         </label>
         <input
@@ -102,7 +105,10 @@ async function onGuestLogin() {
       </div>
 
       <div class="space-y-2">
-        <label class="text-sm font-medium text-stone-700" for="email">
+        <label
+          class="text-sm font-medium text-stone-700 dark:text-stone-300"
+          for="email"
+        >
           Email
         </label>
         <input
@@ -118,7 +124,10 @@ async function onGuestLogin() {
       </div>
 
       <div class="space-y-2">
-        <label class="text-sm font-medium text-stone-700" for="password">
+        <label
+          class="text-sm font-medium text-stone-700 dark:text-stone-300"
+          for="password"
+        >
           Password
         </label>
         <div class="relative">
@@ -146,7 +155,7 @@ async function onGuestLogin() {
 
       <div class="space-y-2">
         <label
-          class="text-sm font-medium text-stone-700"
+          class="text-sm font-medium text-stone-700 dark:text-stone-300"
           for="confirmPassword"
         >
           Confirm password
@@ -176,7 +185,7 @@ async function onGuestLogin() {
 
       <div
         v-if="errorMessage"
-        class="p-3 text-sm text-red-700 bg-red-50 border border-red-200 rounded-md"
+        class="p-3 text-sm text-red-700 bg-red-50 border border-red-200 rounded-md dark:text-red-300 dark:bg-red-950 dark:border-red-900"
         role="alert"
       >
         {{ errorMessage }}
@@ -190,7 +199,7 @@ async function onGuestLogin() {
         {{ isLoading ? "Creating account..." : "Create account" }}
       </button>
 
-      <p class="text-sm text-center text-stone-600">
+      <p class="text-sm text-center text-stone-600 dark:text-stone-400">
         Already have an account?
         <NuxtLink
           to="/login"
@@ -201,17 +210,19 @@ async function onGuestLogin() {
       </p>
     </form>
 
-    <div class="p-6 space-y-4 bg-white border rounded-lg border-stone-200 sm:p-8">
-      <h2 class="text-base font-semibold text-stone-900">
+    <div
+      class="p-6 space-y-4 bg-white border rounded-lg border-stone-200 dark:bg-stone-900 dark:border-stone-800 sm:p-8"
+    >
+      <h2 class="text-base font-semibold text-stone-900 dark:text-stone-100">
         Continue as a guest
       </h2>
-      <p class="text-sm text-stone-600">
+      <p class="text-sm text-stone-600 dark:text-stone-400">
         Browse recipes without an account. Some features require signing in.
       </p>
       <button
         type="button"
         :disabled="isLoading"
-        class="w-full px-5 py-2.5 text-sm font-medium transition-colors rounded-md border border-brand-600 text-brand-600 hover:bg-brand-600 hover:text-white disabled:cursor-not-allowed disabled:opacity-60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600"
+        class="w-full px-5 py-2.5 text-sm font-medium transition-colors rounded-md border border-brand-600 text-brand-600 hover:bg-brand-600 hover:text-white dark:border-brand-500 dark:text-brand-400 dark:hover:bg-brand-600 dark:hover:text-white disabled:cursor-not-allowed disabled:opacity-60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600"
         @click="onGuestLogin"
       >
         {{ isLoading ? "Logging in..." : "Continue as guest" }}
