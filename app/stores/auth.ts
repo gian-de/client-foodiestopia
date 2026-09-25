@@ -143,19 +143,9 @@ export const useAuthStore = defineStore("auth", () => {
       const emailParam = encodeURIComponent(payload.email);
       navigateTo(`${redirectUrl}?email=${emailParam}`);
     } catch (err: any) {
-      let errorMessage = "";
-      if (Array.isArray(err.data)) {
-        errorMessage = err.data
-          .map((e: any) => e.description || e.message)
-          .join(" ");
-      } else if (err.data?.message) {
-        errorMessage = err.data.message;
-      } else if (err.data?.description) {
-        errorMessage = err.data.description;
-      } else {
-        errorMessage = err.message || "Registration failed.";
-      }
-      throw new Error(errorMessage);
+      throw new Error(
+        apiErrorMessage(err, "[POST] \"/api/account/register\": 400 Bad Request")
+      );
     }
   }
 

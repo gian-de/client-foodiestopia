@@ -38,8 +38,14 @@ async function onSubmitRegisterInfo() {
     if (registerForm.email.length < 6)
       throw new Error("Email must be at least 6 characters.");
     if (!registerForm.password.trim()) throw new Error("Password is required.");
-    if (registerForm.password.length < 6)
-      throw new Error("Password must be at least 6 characters.");
+    if (registerForm.password.length < 8)
+      throw new Error("Password must be at least 8 characters.");
+    if (!/[A-Z]/.test(registerForm.password)) {
+      throw new Error("Password must contain at least one uppercase letter.");
+    }
+    if (!/[a-z]/.test(registerForm.password)) {
+      throw new Error("Password must contain at least one lowercase letter.");
+    }
     if (!/\d/.test(registerForm.password)) {
       throw new Error("Password must contain at least one number.");
     }
@@ -139,6 +145,7 @@ async function onGuestLogin() {
             :type="isPasswordHidden ? 'password' : 'text'"
             required
             :class="inputClass"
+            minlength="8"
             placeholder="••••••••"
           />
           <button
@@ -151,6 +158,10 @@ async function onGuestLogin() {
             <EyeIconSlash v-else />
           </button>
         </div>
+        <p class="text-sm text-stone-500 dark:text-stone-400">
+          At least 8 characters, with uppercase, lowercase, a number, and a
+          symbol.
+        </p>
       </div>
 
       <div class="space-y-2">
@@ -168,6 +179,7 @@ async function onGuestLogin() {
             name="confirmPassword"
             :type="isPasswordHidden ? 'password' : 'text'"
             required
+            minlength="8"
             :class="inputClass"
             placeholder="••••••••"
           />
